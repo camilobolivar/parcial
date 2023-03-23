@@ -8,23 +8,7 @@ class tablaexcel:
         self.features = entrante[0]
         self.data = entrante [1:]
 
-    
-
-
-    def __identificardatos__(self):
-        if (type(self.data[0][0]) ==  type(1)) or (type(self.data[0][0]) ==  type(1.2)):
-            respuesta = "numero"
-            return(respuesta)
-        else:
-            respuesta = "letra"
-            return(respuesta)
-        
-
-    def __columnas__(self):
-        respuesta = "|" + str(self.entrante [0][2]) + "|" + str(self.entrante [0][4]) + "|" + "\n" + "|" + str(self.entrante [1][2]) + "|" + str(self.entrante [1][4]) + "|" + "\n" + "|" + str(self.entrante [2][2]) + "|" + str(self.entrante [2][4]) + "|" 
-        return(respuesta)
-
-
+#metodo para imprimir las listas de listas alineadas
 
     def __str__(self):
         if self.shape[0]==1:
@@ -36,20 +20,17 @@ class tablaexcel:
                 respuesta = respuesta + self._imprimir_tabla_(i)+"\n"
             respuesta = respuesta + self._imprimir_tabla_(self.shape[0]-1)
             return(respuesta)
-         
+    
     def _imprimir_tabla_(self,fila):
-        respuesta = "|"
-        for i in range(self.shape[1]-1):
-            respuesta = respuesta + str(self.entrante[fila][i])
-        
-            respuesta = respuesta + "|"
-        respuesta = respuesta + str(self.entrante[fila][self.shape[1]-1]) + "|"
+        respuesta = "| "
+        for i in range(self.shape[1]):
+            respuesta = respuesta +  "{:<10}".format(str((self.entrante[fila][i]))) 
+            respuesta = respuesta + "| "
         return(respuesta)
+    
 
-   
+V1 = tablaexcel([["gabriela","ximena","camilo", "andres", "maria", "juan",], [100,"150",300, 500, 600, 1], [100.8,200,600, 500, 600, 2], [100,150,300, 500, 600, "5"], [100.8,200,600, 500, 600, "5"]])
 
-V1= tablaexcel([[1,2,3, 5, 690, 0],["100.8","ers",300, 500, 600, 0],[100.8,"ana",600, 500, 600, 0]])
-V2= tablaexcel([[10,20,30, 0, 10, 30],[11,21,31, 0, 10, 30]])
-#print(V1)
-#print(V1.__identificardatos__())
-print(V1.__columnas__())
+print(V1)
+
+print(V1.features)
