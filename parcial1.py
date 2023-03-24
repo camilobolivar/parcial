@@ -1,3 +1,4 @@
+import numpy as np
 class tablaexcel:
     def __init__(self, entrante):
         self.entrante = entrante
@@ -19,23 +20,7 @@ class tablaexcel:
             respuesta = respuesta +  "{:<10}".format(str((self.entrante[fila][i]))) 
             respuesta = respuesta + "| "
         return(respuesta)
-
-
-
- #identificar datos 
-    def __identificardatos__(self):
-        for i in range(self.shape[1]):
-            if(type(self.shape[i][0]) ==  int or type(self.shape[i][0]) ==  float):
-                respuesta = "numero"
-                
-            elif(type(self.shape[i][0]) ==  str):
-                respuesta = "letra"
-                
-            else:
-                respuesta = "variados"
-        return(respuesta)
-    
-        
+# citar las columnas que piden
     def __llamar_columnas__(self,columna1, columna2):
         respuesta = ""
         for i in range (self.shape[0]):
@@ -43,12 +28,27 @@ class tablaexcel:
                 "{:<10}".format(str(self.entrante[i][columna1])) + "| " \
                 + "{:<10}".format(str(self.entrante[i][columna2])) + " |" + "\n" 
         return(respuesta)
+ #identificar datos 
+    def __identificardatos__(self):
+        respuesta =[]
+        for j in range(len(self.entrante[0])):
+            primer_dato = type(self.entrante[1][j])
+            for i in range(1,self.shape[0]):
+                if type(self.entrante [i][j]) != primer_dato:
+                    respuesta.append("variado")
+                    break
+            else: 
+                if primer_dato == str:
+                    respuesta.append("letras")
+                else:
+                    respuesta.append("numeros")
+        return respuesta  
 
-V1 = tablaexcel([["gabriela","ximena","camilo", "andres", "maria", "juan",],\
-                  ["uno","dos",3453, 567, 4, 1],\
-                  [100.8,200,600, 500, 7, 2],\
+V1 = tablaexcel([["gabriela","ximena","camilo", "andres", "maria", "juan"],\
+                  [1,"dos",3453, 567, 4, 1],\
+                  [100,200,600, 500, 7, 2],\
                     [148,150,786, 37, 63, "tres"],\
-                    [100.8,24,36, 500, 89, "cuatro"]])
+                    [100,24,36, 500, 89, "cuatro"]])
 
 print("\n tabla tipo excel \n")
 
@@ -58,7 +58,9 @@ print("\n imprimir primera fila \n")
 
 print(V1.features)
 
-#print (V1.__identificardatos__())
+print("\n identificar que datos tiene la columna \n")
+
+print (V1.__identificardatos__())
 
 print("\n imprimir dos columnas \n")
 
